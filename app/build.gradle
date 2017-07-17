@@ -13,6 +13,7 @@ android {
         versionCode 1
         versionName '1.0'
         testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
+        buildConfigField 'String', 'QIITA_CLIENT_ID', "\"${project.property("clientId")}\""
     }
     buildTypes {
         release {
@@ -40,7 +41,10 @@ dependencies {
     implementation "com.google.dagger:dagger-android-support:$dagger_version"
     kapt "com.google.dagger:dagger-android-processor:$dagger_version"
 
-    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
+    androidTestImplementation("com.android.support.test.espresso:espresso-core:$espresso_version", {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    androidTestImplementation("com.android.support.test.espresso:espresso-intents:$espresso_version", {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     testImplementation 'junit:junit:4.12'
