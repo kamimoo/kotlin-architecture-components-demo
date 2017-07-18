@@ -1,9 +1,14 @@
 package com.github.kamimoo.kotlinarchtecture
 
-import android.app.Application
+import com.github.kamimoo.kotlinarchtecture.di.DaggerAppComponent
+import dagger.android.support.DaggerApplication
 import timber.log.Timber
 
-class MainApplication : Application() {
+
+class MainApplication : DaggerApplication() {
+
+    override fun applicationInjector() =
+        DaggerAppComponent.builder().create(this)
 
     override fun onCreate() {
         super.onCreate()
