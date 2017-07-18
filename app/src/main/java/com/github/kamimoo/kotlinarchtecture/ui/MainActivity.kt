@@ -1,7 +1,8 @@
-package com.github.kamimoo.kotlinarchtecture
+package com.github.kamimoo.kotlinarchtecture.ui
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import com.github.kamimoo.kotlinarchtecture.R
 
 class MainActivity : AppCompatActivity() {
 
