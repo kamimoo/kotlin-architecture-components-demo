@@ -43,9 +43,9 @@ class QiitaServiceTest {
         val request = mockWebServer.takeRequest()
         assertEquals(request.path, "/items?query=android")
         assertNotNull(items)
-        assertEquals(items.size, 3)
+        assertEquals(items.body()!!.size, 3)
 
-        val (title, url) = items[0]
+        val (title, url) = items.body()!![0]
         assertEquals(title, "Android O")
         assertEquals(url, "http://qiita.com/a/items/aabbcc123defg04d5ace")
     }
