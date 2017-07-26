@@ -77,4 +77,7 @@ dependencies {
     // MockWebServer
     testImplementation "com.squareup.okhttp3:mockwebserver:$okhttp_version"
 
+    // AssertJ
+    testImplementation "org.assertj:assertj-core:$assertj_version"
+
 }

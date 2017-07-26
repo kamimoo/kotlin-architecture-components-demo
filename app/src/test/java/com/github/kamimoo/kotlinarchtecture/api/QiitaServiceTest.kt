@@ -3,9 +3,8 @@ package com.github.kamimoo.kotlinarchtecture.api
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import okio.Okio
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotNull
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -41,13 +40,13 @@ class QiitaServiceTest {
         enqueueResponse("items.json")
         val items = service.getItems("android").blockingGet()
         val request = mockWebServer.takeRequest()
-        assertEquals(request.path, "/items?query=android")
-        assertNotNull(items)
-        assertEquals(items.body()!!.size, 3)
+        assertThat(request.path).isEqualTo("/items?query=android")
+        assertThat(items).isNotNull()
+        assertThat(items.body()!!.size).isEqualTo(3)
 
         val (title, url) = items.body()!![0]
-        assertEquals(title, "Android O")
-        assertEquals(url, "http://qiita.com/a/items/aabbcc123defg04d5ace")
+        assertThat(title).isEqualTo("Android O")
+        assertThat(url).isEqualTo("http://qiita.com/a/items/aabbcc123defg04d5ace")
     }
 
     private fun enqueueResponse(fileName: String, headers: Map<String, String> = emptyMap()) {
