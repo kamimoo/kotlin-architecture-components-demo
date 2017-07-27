@@ -7,6 +7,7 @@ buildscript {
         support_lib_version = '26.0.0-beta2'
         data_binding_version = '2.3.3'
         rxjava_version = '2.1.2'
+        rxandroid_version = '2.0.1'
         retrofit_version = '2.3.0'
         okhttp_version = '3.8.1'
         moshi_version = '1.5.0'
