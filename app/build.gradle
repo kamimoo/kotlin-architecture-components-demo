@@ -37,6 +37,11 @@ dependencies {
     // Data Binding
     kapt "com.android.databinding:compiler:$data_binding_version"
 
+    // Architecture Components
+    implementation "android.arch.lifecycle:runtime:$arch_comp_version"
+    implementation "android.arch.lifecycle:extensions:$arch_comp_version"
+    kapt "android.arch.lifecycle:compiler:$arch_comp_version"
+
     // Timber
     implementation "com.jakewharton.timber:timber:$timber_version"
 
