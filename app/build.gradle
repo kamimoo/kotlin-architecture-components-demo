@@ -80,4 +80,10 @@ dependencies {
     // AssertJ
     testImplementation "org.assertj:assertj-core:$assertj_version"
 
+    // Mockito
+    testImplementation "org.mockito:mockito-core:$mockito_version"
+
+    // Mockito-Kotlin
+    testImplementation "com.nhaarman:mockito-kotlin-kt1.1:$mockito_kotlin_version"
+
 }
