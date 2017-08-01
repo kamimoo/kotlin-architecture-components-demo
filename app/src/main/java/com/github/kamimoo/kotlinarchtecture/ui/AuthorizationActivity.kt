@@ -1,5 +1,6 @@
 package com.github.kamimoo.kotlinarchtecture.ui
 
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -10,7 +11,6 @@ import android.view.View
 import android.widget.Toast
 import com.github.kamimoo.kotlinarchtecture.BuildConfig
 import com.github.kamimoo.kotlinarchtecture.R
-import com.github.kamimoo.kotlinarchtecture.data.AuthorizationStorage
 import com.google.common.hash.Hashing
 import dagger.android.AndroidInjection
 import timber.log.Timber
@@ -30,13 +30,17 @@ class AuthorizationActivity : AppCompatActivity() {
     }
 
     @Inject
-    lateinit var authStorage: AuthorizationStorage
+    lateinit var viewModelFactory: AuthorizationViewModelFactory
+
+    private lateinit var viewModel: AuthorizationViewModel
 
     private var state: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(AuthorizationViewModel::class.java)
+
         setContentView(R.layout.activity_authorization)
         findViewById<View>(R.id.sign_in).setOnClickListener { showQiitaAuthPage() }
     }
@@ -50,12 +54,15 @@ class AuthorizationActivity : AppCompatActivity() {
                 Timber.e("CSRF code mismatch")
                 Toast.makeText(this, R.string.authorization_failed, Toast.LENGTH_LONG).show()
             } else {
-                authStorage.accessToken = code
-                val newIntent = Intent(this, MainActivity::class.java).apply {
-                    addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
-                }
-                startActivity(newIntent)
-                finish()
+                viewModel.code = code
+                viewModel.updateToken()
+                    .subscribe { _ ->
+                        val newIntent = Intent(this, MainActivity::class.java).apply {
+                            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+                        }
+                        startActivity(newIntent)
+                        finish()
+                    }
             }
         }
     }
