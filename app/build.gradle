@@ -73,6 +73,10 @@ dependencies {
     // Guava
     implementation "com.google.guava:guava:$guava_version"
 
+    // AndroidJUnitRunner
+    androidTestImplementation "com.android.support.test:runner:$support_test_version"
+
+    // Espresso
     androidTestImplementation("com.android.support.test.espresso:espresso-core:$espresso_version", {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
