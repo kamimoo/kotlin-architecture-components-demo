@@ -26,4 +26,9 @@ class SearchFragment : LifecycleFragment() {
         FragmentSearchBinding.inflate(inflater, container, false).also {
             binding = it
         }.root
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        binding.itemList.adapter = RecyclerViewBindingAdapter()
+    }
 }

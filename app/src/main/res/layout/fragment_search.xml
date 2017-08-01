@@ -25,7 +25,8 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/input" />
+            app:layout_constraintTop_toBottomOf="@id/input"
+            tools:listitem="@layout/list_item" />
 
     </android.support.constraint.ConstraintLayout>
 </layout>
