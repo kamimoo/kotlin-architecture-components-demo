@@ -75,6 +75,10 @@ dependencies {
     // Guava
     implementation "com.google.guava:guava:$guava_version"
 
+    // Stetho
+    implementation "com.facebook.stetho:stetho:$stetho_version"
+    implementation "com.facebook.stetho:stetho-okhttp3:$stetho_version"
+
     // AndroidJUnitRunner
     androidTestImplementation "com.android.support.test:runner:$support_test_version"
 

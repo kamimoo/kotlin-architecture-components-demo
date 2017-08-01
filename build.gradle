@@ -14,6 +14,7 @@ buildscript {
         moshi_version = '1.5.0'
         timber_version = '4.5.1'
         guava_version = '22.0-android'
+        stetho_version = '1.5.0'
         support_test_version = '1.0.0'
         espresso_version = '3.0.0'
         assertj_version = '3.8.0'
