@@ -22,8 +22,12 @@ class SearchViewModel @Inject constructor(
 
     var nextPage: Int? = null
 
+    private val _isLoading: MutableLiveData<Boolean> = MutableLiveData()
+    val isLoading: LiveData<Boolean> = _isLoading
+
     init {
         reloadData("")
+        _isLoading.value = false
     }
 
     private fun reloadData(input: String) {
@@ -37,6 +41,27 @@ class SearchViewModel @Inject constructor(
                 },
                 { _items.value = emptyList() }
             ))
+    }
+
+    fun loadNextPage() {
+        val page = nextPage ?: return
+        if (!_isLoading.value!!) {
+            _isLoading.value = true
+            disposable.add(itemRepository.getItems(page = page)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    { (items, page) ->
+                        _items.value = _items.value!! + items
+                        this.nextPage = page
+                        _isLoading.value = false
+                    },
+                    {
+                        _isLoading.value = false
+                    }
+                )
+            )
+        }
     }
 
     override fun onCleared() {
