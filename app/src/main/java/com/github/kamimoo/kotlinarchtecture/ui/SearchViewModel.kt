@@ -8,6 +8,7 @@ import com.github.kamimoo.kotlinarchtecture.data.repository.ItemRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import java.util.*
 import javax.inject.Inject
 
 
@@ -16,6 +17,14 @@ class SearchViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val disposable = CompositeDisposable()
+
+    var query = ""
+        set(value) {
+            val input = value.toLowerCase(Locale.getDefault()).trim { it <= ' ' }
+            if (input != query) {
+                reloadData(input)
+            }
+        }
 
     private val _items: MutableLiveData<List<Item>> = MutableLiveData()
     val items: LiveData<List<Item>> = _items
@@ -47,7 +56,7 @@ class SearchViewModel @Inject constructor(
         val page = nextPage ?: return
         if (!_isLoading.value!!) {
             _isLoading.value = true
-            disposable.add(itemRepository.getItems(page = page)
+            disposable.add(itemRepository.getItems(query, page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
