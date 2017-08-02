@@ -27,4 +27,9 @@ class RecyclerViewBindingAdapter : RecyclerView.Adapter<RecyclerViewBindingAdapt
         constructor(parent: ViewGroup) :
             this(ListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
+
+    fun update(items: List<Item>) {
+        this.items = items
+        notifyDataSetChanged()
+    }
 }
