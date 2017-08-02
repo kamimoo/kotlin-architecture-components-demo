@@ -37,7 +37,7 @@ class ItemRepositoryTest {
 
     @Test
     fun itemsWithLinkHeader() {
-        val header = "<https://qiita.com/api/v2/items?page=1>; rel=\"first\", <https://qiita.com/api/v2/items?page=2>; rel=\"next\", <https://qiita.com/api/v2/items?page=11650>; rel=\"last\""
+        val header = "<https://qiita.com/api/v2/items?page=1&query=foo>; rel=\"first\", <https://qiita.com/api/v2/items?page=2&query=foo>; rel=\"next\", <https://qiita.com/api/v2/items?page=11650&query=foo>; rel=\"last\""
         val headers = mapOf("Link" to header)
         val item1 = Item("a", "http://qiita.com/a/items/aabbcc123defg04d5ace")
         val item2 = Item("b", "http://qiita.com/b/items/000000000abcdef00000")
