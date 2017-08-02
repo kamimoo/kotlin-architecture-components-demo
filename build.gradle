@@ -12,6 +12,7 @@ buildscript {
         retrofit_version = '2.3.0'
         okhttp_version = '3.8.1'
         moshi_version = '1.5.0'
+        glide_version = '4.0.0'
         timber_version = '4.5.1'
         guava_version = '22.0-android'
         stetho_version = '1.5.0'
