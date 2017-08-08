@@ -1,6 +1,7 @@
 package com.github.kamimoo.kotlinarchtecture.api
 
 import com.github.kamimoo.kotlinarchtecture.data.model.TokenParams
+import com.github.kamimoo.kotlinarchtecture.data.model.User
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import okio.Okio
@@ -45,9 +46,10 @@ class QiitaServiceTest {
         assertThat(items).isNotNull()
         assertThat(items.body()!!.size).isEqualTo(3)
 
-        val (title, url) = items.body()!![0]
+        val (title, url, user) = items.body()!![0]
         assertThat(title).isEqualTo("Android O")
         assertThat(url).isEqualTo("http://qiita.com/a/items/aabbcc123defg04d5ace")
+        assertThat(user).isEqualTo(User("a", "https://secure.gravatar.com/avatar/ae0e6753dc414a238b0fc13fa825c24e"))
     }
 
     @Test

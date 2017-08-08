@@ -12,7 +12,7 @@ class ItemRepository @Inject constructor(private val qiitaService: QiitaService)
     companion object {
 
         private val NEXT_PAGE_PATTERN = Pattern
-            .compile("<[^>]*\\?page=(\\d+)>[\\s]*;[\\s]*rel=\"next\"")
+            .compile("<[^>]*\\?page=(\\d+)[^>]*>[\\s]*;[\\s]*rel=\"next\"")
     }
 
     fun getItems(query: String = "", page: Int = 1): Single<Pair<List<Item>, Int?>> {

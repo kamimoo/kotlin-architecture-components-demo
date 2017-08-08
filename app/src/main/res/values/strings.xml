@@ -2,4 +2,5 @@
     <string name="app_name">kotlin-architecture-components-demo</string>
     <string name="sign_in">Sign in to Qiita</string>
     <string name="authorization_failed">Authorization Failed</string>
+    <string name="search_hint">search items</string>
 </resources>
