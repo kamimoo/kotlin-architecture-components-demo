@@ -7,7 +7,7 @@ import com.github.kamimoo.kotlinarchtecture.data.model.Item
 import com.github.kamimoo.kotlinarchtecture.databinding.ListItemBinding
 
 
-class RecyclerViewBindingAdapter : RecyclerView.Adapter<RecyclerViewBindingAdapter.BindingViewHolder>() {
+class RecyclerViewBindingAdapter(val itemClickCallback: (item: Item) -> Unit) : RecyclerView.Adapter<RecyclerViewBindingAdapter.BindingViewHolder>() {
 
     private var items: List<Item> = emptyList()
 
@@ -23,6 +23,12 @@ class RecyclerViewBindingAdapter : RecyclerView.Adapter<RecyclerViewBindingAdapt
 
     inner class BindingViewHolder private constructor(val binding: ListItemBinding)
         : RecyclerView.ViewHolder(binding.root) {
+
+        init {
+            binding.root.setOnClickListener {
+                itemClickCallback(binding.item)
+            }
+        }
 
         constructor(parent: ViewGroup) :
             this(ListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))

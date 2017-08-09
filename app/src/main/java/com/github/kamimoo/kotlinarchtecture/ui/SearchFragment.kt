@@ -4,8 +4,10 @@ import android.arch.lifecycle.LifecycleFragment
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
+import android.net.Uri
 import android.os.Bundle
 import android.os.IBinder
+import android.support.customtabs.CustomTabsIntent
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.KeyEvent
@@ -14,7 +16,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import com.github.kamimoo.kotlinarchtecture.data.model.Item
 import com.github.kamimoo.kotlinarchtecture.databinding.FragmentSearchBinding
+import com.github.kamimoo.kotlinarchtecture.util.buildWithChromePackage
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
@@ -42,10 +46,17 @@ class SearchFragment : LifecycleFragment() {
             binding = it
         }.root
 
+    fun navigate(item: Item) {
+        CustomTabsIntent
+            .Builder()
+            .buildWithChromePackage(activity)
+            .launchUrl(activity, Uri.parse(item.url))
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(SearchViewModel::class.java)
-        val adapter = RecyclerViewBindingAdapter()
+        val adapter = RecyclerViewBindingAdapter { item -> navigate(item) }
         binding.itemList.adapter = adapter
 
         initSearchInputListener()
