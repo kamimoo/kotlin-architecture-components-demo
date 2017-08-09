@@ -11,6 +11,7 @@ import android.view.View
 import android.widget.Toast
 import com.github.kamimoo.kotlinarchtecture.BuildConfig
 import com.github.kamimoo.kotlinarchtecture.R
+import com.github.kamimoo.kotlinarchtecture.util.buildWithChromePackage
 import com.google.common.hash.Hashing
 import dagger.android.AndroidInjection
 import timber.log.Timber
@@ -91,10 +92,8 @@ class AuthorizationActivity : AppCompatActivity() {
             appendQueryParameter(PARAM_STATE, state)
         }.build()
         CustomTabsIntent
-            .Builder().apply {
-            setShowTitle(true)
-            setToolbarColor(ContextCompat.getColor(this@AuthorizationActivity, R.color.colorPrimary))
-        }.build()
+            .Builder()
+            .buildWithChromePackage(this@AuthorizationActivity)
             .launchUrl(this, authUri)
 
     }
